@@ -105,7 +105,7 @@ export const CartProvider = ({ children }) => {
   // Remove item from cart
   const removeItemFromCart = async (id) => {
     try {
-      await client.post("/api/cart/remove", { menuItemId: id });
+      await client.delete(`/api/cart/remove/${id}`);
       dispatch({ type: REMOVE_ITEM, payload: id });
     } catch (error) {
       console.error("Failed to remove item:", error);
