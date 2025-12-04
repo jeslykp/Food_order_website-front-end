@@ -39,9 +39,9 @@ export default function AdminDashboard() {
   if (loading) return <p className="text-center mt-10">Loading dashboard...</p>;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">
       {/* ===== SIDEBAR ===== */}
-      <aside className="w-64 bg-white shadow-md p-4 flex flex-col gap-4">
+      <aside className="w-full md:w-64 bg-white shadow-md p-4 flex flex-col gap-4">
         <h2 className="text-xl font-semibold text-orange-600 mb-2">Admin Panel</h2>
         <nav className="flex flex-col gap-3">
           <Link to="/admin" className="py-2 px-3 bg-orange-100 rounded hover:bg-orange-200 text-center">Dashboard</Link>
@@ -56,7 +56,7 @@ export default function AdminDashboard() {
           <h1 className="text-2xl font-semibold">Dashboard</h1>
         </header>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6">
           <div className="bg-white p-6 rounded shadow-md">
             <h2 className="text-lg font-semibold text-gray-800">Total Orders</h2>
             <p className="text-3xl font-bold mt-2 text-orange-600">{totalOrders}</p>
@@ -76,9 +76,12 @@ export default function AdminDashboard() {
         {/* ===== Recent Orders ===== */}
         <section className="bg-white p-6 rounded shadow-md">
           <h2 className="text-lg font-semibold mb-4">Recent Orders</h2>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 overflow-x-auto">
             {orders.slice(0, 5).map((order) => (
-              <div key={order._id} className="p-3 bg-orange-100 rounded flex justify-between items-center">
+              <div
+                key={order._id}
+                className="p-3 bg-orange-100 rounded flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0"
+              >
                 <span>Order #{order._id.slice(-6)}</span>
                 <span>Status: {order.status}</span>
                 <span>Total: AED {order.totalAmount}</span>

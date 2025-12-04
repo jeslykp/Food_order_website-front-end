@@ -2,6 +2,7 @@ import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useAuth } from "../context/auth-context";
 import client from "../api/client";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../api/auth";
 
 export default function LogoutConfirmPopup({ open, onClose }) {
   const { clearAuthUser } = useAuth();
@@ -9,6 +10,7 @@ export default function LogoutConfirmPopup({ open, onClose }) {
 
   const handleLogout = async () => {
     try {
+      logout();
       await client.delete("api/cart/clear-cart/");
       clearAuthUser();
       onClose();

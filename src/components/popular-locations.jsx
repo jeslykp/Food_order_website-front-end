@@ -2,7 +2,6 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-
 export default function PopularLocations() {
   const popularLocations = [
     { id: 1, name: "Ajman" },
@@ -30,11 +29,11 @@ export default function PopularLocations() {
           find your next great meal.
         </Typography>
       </Box>
-      <div className="flex gap-4 items-center justify-center pb-5">
+      <div className="flex flex-wrap gap-4 justify-center items-center pb-5">
         {popularLocations.map((location) => (
           <div
             key={location.id}
-            className="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center border border-[rgb(220,70,5)]"
+            className="w-full sm:w-auto px-4 py-3 bg-white rounded-lg shadow hover:shadow-lg transition text-center border border-[rgb(220,70,5)]"
           >
             {location.name}
           </div>

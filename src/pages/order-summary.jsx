@@ -114,6 +114,18 @@ export default function OrderSummary() {
               </div>
             </Box>
           ))}
+          <Box className="flex justify-end mt-4">
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => {
+                clearCart();
+                setCartData([]);
+              }}
+            >
+              Clear Cart
+            </Button>
+          </Box>
         </CardContent>
       </Card>
 

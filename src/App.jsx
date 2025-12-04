@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/home";
 import { AuthProvider } from "./context/auth-context";
 import Navbar from "./components/navbar";
@@ -24,17 +23,18 @@ import { useAuth } from "./context/auth-context";
 
 const App = () => {
   const queryClient = new QueryClient();
+  const location = useLocation();
+
   const NavbarWrapper = () => {
-    const { authUser } = useAuth(); // safe inside provider
-    const isAdmin = authUser?.role === "admin";
-    return isAdmin ? <AdminNav /> : <Navbar />;
+    const { isAdmin } = useAuth(); // safe inside provider
+    return isAdmin() ? <AdminNav /> : <Navbar />;
   };
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <CartProvider>
           <div className="min-h-screen flex flex-col">
-            <NavbarWrapper />{" "}
+            {location.pathname !== "/login" && <NavbarWrapper />}
             <main className="flex-1">
               <Routes>
                 {/* PUBLIC ROUTES */}

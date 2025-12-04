@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
 import client from "../api/client";
+import { useParams } from "react-router-dom";
 
 // Initial state
 const initialState = {
@@ -75,19 +76,22 @@ const CartContext = createContext();
 // Provider
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
-
+ const { restaurantId } = useParams();
   // Fetch cart on load
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await client.get("/api/cart"); // Adjust API endpoint
+        if (!restaurantId) return; 
+        const res = await client.get(
+          `/api/cart?restaurantId=${restaurantId}`
+        );
         dispatch({ type: SET_CART, payload: res.data.items || [] });
       } catch (error) {
         console.error("Failed to fetch cart:", error);
       }
     };
     fetchCart();
-  }, []);
+  }, [restaurantId]);
 
   // Add item to cart
   const addItemToCart = async (item) => {

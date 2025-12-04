@@ -9,7 +9,7 @@ export default function Navbar() {
   const { cartCount } = useCart();
   u;
   const [logoutPopupOpen, setLogoutPopupOpen] = useState(false);
-  const { authUser } = useAuth();
+  const { authUser, isAdmin } = useAuth();
 
   const handleProfileClick = () => {
     if (authUser) setLogoutPopupOpen(true);
@@ -18,7 +18,7 @@ export default function Navbar() {
     <>
       <nav className="bg-[rgb(244,237,227)] p-5 flex justify-between items-center">
         <div>
-          <Link to="/">
+          <Link to={isAdmin() ? "/admin" : "/"}>
             <img
               src="https://www.talabat.com/assets/images/remix-logo.svg"
               alt="TalabatClone Logo"
@@ -57,7 +57,7 @@ export default function Navbar() {
           </Link>
         </div>
       </nav>
-{/* 
+      {/* 
       {loginPopupOpen && (
         <ProfilePopup
           open={loginPopupOpen}
